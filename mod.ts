@@ -16,7 +16,7 @@ export const createSorter = <T>(cfg: SortConfig<T>) => {
 
 		try {
 			if (arrs.map((a) => a[0].length).reduce((a, b) => a + b) === 0) {
-				return { err: "all_empty", result: null };
+				return { err: "all_empty", ok: null };
 			}
 			arrs.forEach((a, i) => {
 				a[0].forEach((item, j) => {
@@ -69,9 +69,9 @@ export const createSorter = <T>(cfg: SortConfig<T>) => {
 
 			weightings.sort((a, b) => a[1] - b[1]);
 
-			return { err: null, result: weightings.map((a) => objs[a[0]]) };
+			return { err: null, ok: weightings.map((a) => objs[a[0]]) };
 		} catch (e) {
-			return { err: e, result: null };
+			return { err: e, ok: null };
 		}
 	};
 };
@@ -86,4 +86,4 @@ export const sortInfallible = <T>(
 ) => createSorter<T>({
     ifMissing: 0,
     ifNonUnique: "use_first"
-})(arrs).result as T[];
+})(arrs).ok as T[];
